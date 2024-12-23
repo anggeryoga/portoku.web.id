@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masukkan URL dan Username</title>
+  <style>
+    /* Desain sederhana untuk form */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    .form-container input, .form-container button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .form-container button {
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+    .form-container button:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Masukkan URL Canva dan Username</h2>
+    <form id="form">
+      <input type="text" id="username" placeholder="Username (unik)" required>
+      <input type="text" id="embed_url" placeholder="URL Embed Canva" required>
+      <button type="button" onclick="redirectToUsernamePage()">Buat Halaman</button>
+    </form>
+  </div>
+
+  <script>
+    function redirectToUsernamePage() {
+      const username = document.getElementById('username').value;
+      const embedUrl = document.getElementById('embed_url').value;
+      
+      if (username && embedUrl) {
+        // Arahkan pengguna ke URL dengan username di path
+        window.location.href = `/username.html?username=${username}&embedUrl=${encodeURIComponent(embedUrl)}`;
+      } else {
+        alert('Mohon masukkan username dan URL embed Canva!');
+      }
+    }
+  </script>
+
+</body>
+</html>
