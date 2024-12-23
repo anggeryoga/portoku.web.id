@@ -1,71 +1,82 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masukkan URL dan Username</title>
   <style>
-    /* Desain sederhana untuk form */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    .embed-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-    .form-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    .responsive-embed {
+      position: relative;
+      background: #f5f5f5;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    
+    .responsive-embed:hover {
+      transform: translateY(-4px);
+    }
+    
+    .aspect-ratio-container {
+      position: relative;
       width: 100%;
-      max-width: 500px;
+      height: 0;
+      padding-top: 56.25%;
     }
-    .form-container input, .form-container button {
+    
+    .embed-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .form-container button {
-      background-color: #0073e6;
-      color: white;
+      height: 100%;
       border: none;
-      font-weight: bold;
     }
-    .form-container button:hover {
-      background-color: #005bb5;
+    
+    .attribution {
+      margin-top: 1rem;
+      text-align: center;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    .attribution a {
+      color: #333;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: #f0f0f0;
+      transition: background 0.2s ease;
+    }
+    
+    .attribution a:hover {
+      background: #e0e0e0;
     }
   </style>
 </head>
 <body>
-
-  <div class="form-container">
-    <h2>Masukkan URL Canva dan Username</h2>
-    <form id="form">
-      <input type="text" id="username" placeholder="Username (unik)" required>
-      <input type="text" id="embed_url" placeholder="URL Embed Canva" required>
-      <button type="button" onclick="redirectToUsernamePage()">Buat Halaman</button>
-    </form>
+  <div class="embed-container">
+    <div class="responsive-embed">
+      <div class="aspect-ratio-container">
+        <iframe 
+          class="embed-iframe"
+          loading="lazy"
+          src="https://www.canva.com/design/DAGaE5WBcQU/9jszmXULThpZng6ZMltkaQ/view?embed" 
+          allowfullscreen="allowfullscreen" 
+          allow="fullscreen">
+        </iframe>
+      </div>
+    </div>
+    <div class="attribution">
+      <a href="https://www.canva.com/design/DAGaE5WBcQU/9jszmXULThpZng6ZMltkaQ/view?utm_content=DAGaE5WBcQU&utm_campaign=designshare&utm_medium=embeds&utm_source=link" 
+         target="_blank" 
+         rel="noopener">
+        Design by Angger aji Prayogo Kusuma
+      </a>
+    </div>
   </div>
-
-  <script>
-    function redirectToUsernamePage() {
-      const username = document.getElementById('username').value;
-      const embedUrl = document.getElementById('embed_url').value;
-      
-      if (username && embedUrl) {
-        // Arahkan pengguna ke URL dengan username di path
-        window.location.href = `/username.html?username=${username}&embedUrl=${encodeURIComponent(embedUrl)}`;
-      } else {
-        alert('Mohon masukkan username dan URL embed Canva!');
-      }
-    }
-  </script>
-
 </body>
 </html>
