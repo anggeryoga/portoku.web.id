@@ -1,63 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #f0f2f5;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
-
-    .presentation-container {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 20px;
-    }
-
-    .embed-container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-
-    .aspect-ratio-container {
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-top: 56.25%;
-    }
-
-    .embed-iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Angèle Bappel</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="presentation-container">
-    <div class="embed-container">
-      <div class="aspect-ratio-container">
-        <iframe 
-          class="embed-iframe"
-          loading="lazy"
-          src="https://www.canva.com/design/DAGaE5WBcQU/9jszmXULThpZng6ZMltkaQ/view?embed" 
-          allowfullscreen="allowfullscreen" 
-          allow="fullscreen">
-        </iframe>
-      </div>
-    </div>
-  </div>
+    <div class="cursor"></div>
+    <header class="header">
+        <div class="header-top animate-on-scroll">
+            <span>PORTFOLIO ANGÈLE BAPPEL</span>
+            <span>ANNÉE 2024</span>
+            <span>DIRECTRICE ARTISTIQUE</span>
+        </div>
+        
+        <div class="portfolio-banner animate-on-scroll">
+            <h1>
+                <span class="banner-text">PORT</span>
+                <span class="banner-hands">
+                    <img src="data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z' fill='%23FFD700'/%3E%3C/svg%3E" alt="decoration" class="banner-decoration">
+                </span>
+                <span class="banner-text">FOLIO</span>
+                <span class="banner-flower">
+                    <img src="data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z' fill='%23FFD700'/%3E%3C/svg%3E" alt="flower">
+                </span>
+            </h1>
+        </div>
+
+        <nav class="nav-menu animate-on-scroll">
+            <a href="#ui" class="nav-link">UI DESIGN</a>
+            <a href="#illustration" class="nav-link">ILLUSTRATION</a>
+            <a href="#social" class="nav-link">SOCIAL MEDIA</a>
+            <a href="#motion" class="nav-link">MOTION DESIGN</a>
+            <a href="#3d" class="nav-link">3D</a>
+            <a href="#game" class="nav-link">GAME DESIGN</a>
+            <a href="#graphisme" class="nav-link">GRAPHISME</a>
+            <a href="#interactive" class="nav-link">DESIGN INTERACTIF</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="introduction animate-on-scroll">
+            <div class="avatar">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='300' fill='%23F5F5F5'/%3E%3C/svg%3E" alt="Avatar" class="avatar-img">
+                </div>
+            </div>
+            <div class="intro-text">
+                <h2 class="hello-text">HELLO!</h2>
+                <p class="intro-name">Je m'appelle Angèle & je suis DA junior.</p>
+                <p class="intro-description">Je suis une designeuse graphique basée à Paris. Férue d'illustration, je crée des projets graphiques débordants de couleurs. Toujours partante pour expérimenter et échanger avec d'autres créatifs.</p>
+                <p class="intro-passion">Impliquée tant dans mes projets que dans les équipes qui les portent, je m'investis pleinement pour donner vie à des créations qui résonnent.</p>
+                <div class="domains">
+                    <span class="domain-tag hover-effect">ILLUSTRATION</span>
+                    <span class="domain-tag hover-effect">MOTION</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="sections">
+            <section class="section experiences animate-on-scroll">
+                <h3>EXPERIENCES</h3>
+                <div class="timeline">
+                    <div class="experience-item">
+                        <div class="experience-date">Septembre 2023 - Maintenant</div>
+                        <h4>FREE LANCE</h4>
+                        <p>UPIAN PRODUCTION, BRAVE PARIS, LACOSTE, SHAY, BEEDEEZ, PSY APO</p>
+                    </div>
+                    <!-- More experience items -->
+                </div>
+            </section>
+
+            <section class="section formations animate-on-scroll">
+                <h3>FORMATIONS</h3>
+                <div class="education-list">
+                    <div class="education-item">
+                        <div class="education-year">2021 - 2023</div>
+                        <h4>GOBELINS Paris (75020)</h4>
+                        <p>Expertise en création numérique interactive. Lead créatif</p>
+                    </div>
+                    <!-- More education items -->
+                </div>
+            </section>
+
+            <section class="section skills animate-on-scroll">
+                <h3>APTITUDES</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag hover-effect">ILLUSTRATION DIGITALE</span>
+                    <span class="skill-tag hover-effect">BLENDER</span>
+                    <span class="skill-tag hover-effect">STORYBOARD</span>
+                    <span class="skill-tag hover-effect">SUITE ADOBE</span>
+                    <span class="skill-tag hover-effect">FIGMA</span>
+                    <span class="skill-tag hover-effect">ANIMATION</span>
+                </div>
+            </section>
+        </div>
+
+        <section class="portfolio-gallery animate-on-scroll">
+            <h3 class="gallery-title">PSY APO</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="data:image/svg+xml,%3Csvg width='400' height='300' viewBox='0 0 400 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='300' fill='%23E0E0E0'/%3E%3C/svg%3E" alt="Project 1" class="gallery-img">
+                </div>
+                <!-- More gallery items -->
+            </div>
+            <div class="project-info">
+                <div class="project-tags">
+                    <span class="domain-tag hover-effect">ANIMATION TRADITIONNELLE</span>
+                    <span class="domain-tag hover-effect">MOTION DESIGN</span>
+                    <span class="domain-tag hover-effect">NARRATION</span>
+                </div>
+                <p class="project-description">Avec Maxime Baron, notre projet illustre visuellement la thérapie en analyse psycho-organique à travers le parcours difficile d'Alex. L'histoire explore ses souffrances initiales, sa rencontre avec le thérapeute, le déroulement de la thérapie, et enfin, la transformation du patient.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer animate-on-scroll">
+        <div class="contact-section">
+            <h3>CONTACT</h3>
+            <div class="contact-links">
+                <a href="mailto:angele.bappel@outlook.fr" class="contact-link hover-effect">
+                    <span class="icon">✉️</span>
+                    angele.bappel@outlook.fr
+                </a>
+                <a href="https://behance.net/angelebappel" class="contact-link hover-effect">
+                    <span class="icon">🎨</span>
+                    behance.net/angelebappel
+                </a>
+                <a href="https://linkedin.com/in/angele-bappel" class="contact-link hover-effect">
+                    <span class="icon">💼</span>
+                    linkedin.com/in/angele-bappel
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
