@@ -469,3 +469,23 @@ body {
         background: var(--button-primary);
     }
 }
+.avatar-container {
+    width: 350px; /* Ukuran default di desktop */
+    overflow: hidden; /* Memastikan border radius hanya diterapkan pada sisi kiri */
+}
+
+.avatar-img {
+    width: 100%; /* Membuat gambar mengikuti lebar container */
+    height: auto; /* Menjaga proporsi gambar */
+    border-top-left-radius: 15px; /* Border radius pada sisi kiri atas */
+    border-bottom-left-radius: 15px; /* Border radius pada sisi kiri bawah */
+    border-top-right-radius: 0; /* Sisi kanan siku-siku */
+    border-bottom-right-radius: 0; /* Sisi kanan siku-siku */
+}
+
+/* Media Query untuk perangkat mobile */
+@media (max-width: 768px) {
+    .avatar-container {
+        width: 100%; /* Lebar full pada layar kecil (mobile) */
+    }
+}
