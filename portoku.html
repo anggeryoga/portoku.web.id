@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-radius: 12px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .toolbar {
+            background: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: var(--border-radius);
+        }
+
+        button {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: calc(var(--border-radius) - 4px);
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        button.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.875rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .viewer-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+            overflow: auto;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .canvas-container {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        #pdf-canvas {
+            border-radius: calc(var(--border-radius) - 4px);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 1.5rem 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            display: none;
+            animation: pulse 2s infinite;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid #e2e8f0;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+            50% { box-shadow: 0 8px 35px rgba(37, 99, 235, 0.2); }
+            100% { box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        }
+
+        @media (max-width: 768px) {
+            .toolbar {
+                flex-wrap: wrap;
+            }
+            
+            .button-group {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <i class="fas fa-file-pdf logo"></i>
+            <h1 class="title">CV Viewer</h1>
+        </div>
+    </div>
+    
+    <div class="toolbar">
+        <div class="button-group">
+            <button id="prev-page" disabled>
+                <i class="fas fa-chevron-left"></i>
+                Previous
+            </button>
+            <button id="next-page" disabled>
+                Next
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <span class="page-info">
+            <i class="fas fa-file-alt"></i>
+            Page <span id="page-num">0</span> of <span id="page-count">0</span>
+        </span>
+        
+        <div class="button-group">
+            <button id="zoom-out">
+                <i class="fas fa-search-minus"></i>
+                Zoom Out
+            </button>
+            <button id="zoom-in">
+                <i class="fas fa-search-plus"></i>
+                Zoom In
+            </button>
+        </div>
+    </div>
+
+    <div class="viewer-container" id="viewer-container">
+        <div class="canvas-container">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+    </div>
+
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pageNum = 1;
+        let scale = 1.5;
+        const canvas = document.getElementById('pdf-canvas');
+        const ctx = canvas.getContext('2d');
+        const loading = document.querySelector('.loading');
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
+
+        async function loadPDF(url) {
+            loading.style.display = 'flex';
+            
+            try {
+                const pdf = await pdfjsLib.getDocument(url).promise;
+                pdfDoc = pdf;
+                document.getElementById('page-count').textContent = pdf.numPages;
+                
+                prevButton.disabled = pageNum <= 1;
+                nextButton.disabled = pageNum >= pdf.numPages;
+                
+                await renderPage(pageNum);
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                loading.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error loading PDF';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        async function renderPage(num) {
+            loading.style.display = 'flex';
+            
+            try {
+                const page = await pdfDoc.getPage(num);
+                const viewport = page.getViewport({ scale: scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                await page.render(renderContext).promise;
+                document.getElementById('page-num').textContent = pageNum;
+                loading.style.display = 'none';
+            } catch (error) {
+                console.error('Error rendering page:', error);
+                loading.style.display = 'none';
+            }
+        }
+
+        prevButton.addEventListener('click', async () => {
+            if (pageNum <= 1) return;
+            pageNum--;
+            await renderPage(pageNum);
+            prevButton.disabled = pageNum <= 1;
+            nextButton.disabled = false;
+        });
+
+        nextButton.addEventListener('click', async () => {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            await renderPage(pageNum);
+            nextButton.disabled = pageNum >= pdfDoc.numPages;
+            prevButton.disabled = false;
+        });
+
+        document.getElementById('zoom-in').addEventListener('click', async () => {
+            if (scale < 3.0) {
+                scale += 0.25;
+                await renderPage(pageNum);
+            }
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', async () => {
+            if (scale > 0.5) {
+                scale -= 0.25;
+                await renderPage(pageNum);
+            }
+        });
+
+        // Initial load
+        loadPDF('assets/portoangger.pdf');
+    </script>
+</body>
+</html>
