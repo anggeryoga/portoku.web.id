@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertanyaan untuk Pasangan</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #e94057;
+            --primary-light: #f27121;
+            --secondary: #8a2387;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --bg-color: #fcf8f8;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-color: rgba(233, 64, 87, 0.2);
+            --gradient: linear-gradient(135deg, var(--secondary), var(--primary), var(--primary-light));
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e94057' fill-opacity='0.07'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), var(--gradient);
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Decorative elements */
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e94057' opacity='0.6'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center center;
+            background-size: contain;
+            pointer-events: none;
+            animation: float-up 12s linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Main card container with glass effect */
+        .card-container {
+            width: 100%;
+            max-width: 450px;
+            perspective: 1200px;
+            z-index: 10;
+        }
+        
+        .card {
+            position: relative;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px var(--shadow-color), 
+                        0 5px 15px rgba(0, 0, 0, 0.05),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.4s ease;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 0 20px 40px var(--shadow-color), 
+                        0 10px 20px rgba(0, 0, 0, 0.08),
+                        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+        
+        .card-header {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--primary);
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            font-weight: 400;
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .question-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .question-container {
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(231, 84, 128, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-container::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: rgba(233, 64, 87, 0.1);
+            line-height: 1;
+        }
+        
+        .question-container::after {
+            content: '"';
+            position: absolute;
+            bottom: -20px;
+            right: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: rgba(233, 64, 87, 0.1);
+            line-height: 1;
+        }
+        
+        #question {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin: 0;
+            transition: all 0.5s ease;
+            z-index: 2;
+            font-weight: 400;
+            text-align: center;
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: var(--white);
+            font-size: 0.75rem;
+            padding: 5px 15px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            z-index: 10;
+            white-space: nowrap;
+        }
+        
+        .button-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            z-index: 2;
+        }
+        
+        .dice-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px var(--shadow-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dice-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .dice-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+        
+        .dice-button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .dice-button:active {
+            transform: translateY(0) scale(0.95);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .dice-icon {
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+        
+        .button-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .dice-button:hover + .button-label {
+            opacity: 1;
+        }
+        
+        /* Progress indicator */
+        .question-progress {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(233, 64, 87, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            transition: width 0.3s ease;
+        }
+        
+        /* Heart icon pulse animation */
+        .hearts-decoration {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0;
+        }
+        
+        .heart-icon {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 18px;
+            margin: 0 5px;
+            animation: heartbeat 1.5s infinite;
+            animation-delay: calc(var(--i) * 0.3s);
+            opacity: 0.9;
+            text-shadow: 0 0 10px var(--primary);
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.3); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        .question-number {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .dice-rolling {
+            animation: rolling 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes rolling {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.8); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        .question-fade {
+            animation: fade 0.5s ease-in-out;
+        }
+        
+        @keyframes fade {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card footer with love */
+        .card-footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        
+        .love-icon {
+            color: var(--primary);
+            font-size: 0.9rem;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .question-container {
+                min-height: 170px;
+                padding: 20px 15px;
+            }
+            
+            #question {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            
+            .dice-button {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+            
+            .hearts-decoration {
+                top: -35px;
+            }
+            
+            .heart-icon {
+                font-size: 16px;
+                margin: 0 4px;
+            }
+            
+            .button-label {
+                bottom: -25px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background animation -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Pertanyaan Romantis</h1>
+                <p class="subtitle">Momen spesial untuk kita berdua</p>
+            </div>
+            
+            <div class="question-wrapper">
+                <span id="category-badge" class="category-badge">Pilih Pertanyaan</span>
+                <div class="question-container">
+                    <p id="question">Klik dadu di bawah untuk mendapatkan pertanyaan romantis yang akan membuat kita semakin dekat...</p>
+                </div>
+                <div class="question-progress">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <span id="question-number" class="question-number"></span>
+            </div>
+            
+            <div class="button-container">
+                <div class="hearts-decoration">
+                    <i class="fas fa-heart heart-icon" style="--i: 0"></i>
+                    <i class="fas fa-heart heart-icon" style="--i: 1"></i>
+                    <i class="fas fa-heart heart-icon" style="--i: 2"></i>
+                </div>
+                <button id="new-question" class="dice-button">
+                    <span class="dice-icon"><i class="fas fa-dice"></i></span>
+                </button>
+                <span class="button-label">Acak Pertanyaan</span>
+            </div>
+            
+            <div class="card-footer">
+                Dibuat dengan <i class="fas fa-heart love-icon"></i> untuk momen spesial kita
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions data
+        const questions = [
+            { id: 1, category: "daily", question: "Gimana hari ini? Ada yang bikin kamu bahagia atau malah kesel?" },
+            { id: 2, category: "daily", question: "Apa yang paling bikin kamu semangat belakangan ini?" },
+            { id: 3, category: "daily", question: "Apa hal kecil yang bisa aku lakukan buat bikin harimu lebih baik?" },
+            { id: 4, category: "daily", question: "Ada sesuatu yang lagi bikin kamu khawatir atau kepikiran?" },
+            { id: 5, category: "daily", question: "Kalau kamu bisa mengulang satu momen hari ini, apa yang mau kamu ulang?" },
+            { id: 6, category: "relationship", question: "Apa yang paling kamu suka dari hubungan kita?" },
+            { id: 7, category: "relationship", question: "Menurut kamu, gimana cara kita bisa makin dekat?" },
+            { id: 8, category: "relationship", question: "Ada hal yang pengen kamu obrolin tapi belum sempat?" },
+            { id: 9, category: "relationship", question: "Apa kenangan favorit kamu tentang kita?" },
+            { id: 10, category: "relationship", question: "Apa yang pertama kali bikin kamu tertarik sama aku?" },
+            { id: 11, category: "future", question: "Kalau kita bisa pergi liburan bareng sekarang, kamu mau ke mana dan kenapa?" },
+            { id: 12, category: "future", question: "Di mana kamu membayangkan kita 5 tahun lagi?" },
+            { id: 13, category: "future", question: "Apa impian terbesar yang pengen kamu capai, dan gimana aku bisa mendukung kamu?" },
+            { id: 14, category: "future", question: "Apa yang kamu harapkan dari hubungan kita ke depannya?" },
+            { id: 15, category: "future", question: "Kalau kita punya rumah bareng suatu saat nanti, rumah seperti apa yang kamu inginkan?" },
+            { id: 16, category: "personality", question: "Apa cara favoritmu buat menunjukkan rasa sayang?" },
+            { id: 17, category: "personality", question: "Gimana caraku bisa lebih mendukung kamu dalam hal yang lagi kamu kejar sekarang?" },
+            { id: 18, category: "personality", question: "Kalau kamu bisa mendeskripsikan hubungan kita dalam tiga kata, apa aja?" },
+            { id: 19, category: "personality", question: "Apa yang paling bikin kamu nyaman saat bersama aku?" },
+            { id: 20, category: "personality", question: "Apa satu hal baru yang ingin kamu coba bareng aku?" }
+        ];
+
+        // Translate categories to Indonesian
+        const categoryTranslations = {
+            "daily": "Keseharian",
+            "relationship": "Hubungan",
+            "future": "Masa Depan",
+            "personality": "Kepribadian"
+        };
+
+        // DOM elements
+        const questionElement = document.getElementById("question");
+        const diceButton = document.getElementById("new-question");
+        const categoryBadge = document.getElementById("category-badge");
+        const progressBar = document.getElementById("progress-bar");
+        const questionNumber = document.getElementById("question-number");
+        const floatingHeartsContainer = document.getElementById("floating-hearts");
+        
+        // Keep track of asked questions
+        let askedQuestions = [];
+        let currentQuestionIndex = -1;
+        
+        // Create floating hearts background
+        function createFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 10}s`;
+                heart.style.opacity = `${Math.random() * 0.7}`;
+                heart.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+                floatingHeartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Show a random question that hasn't been asked yet
+        function showRandomQuestion() {
+            // Add animation classes
+            diceButton.classList.add("dice-rolling");
+            questionElement.style.opacity = "0";
+            
+            setTimeout(() => {
+                let availableQuestions = questions.filter(q => !askedQuestions.includes(q.id));
+                
+                // If all questions have been asked, reset
+                if (availableQuestions.length === 0) {
+                    askedQuestions = [];
+                    availableQuestions = [...questions];
+                }
+                
+                // Select a random question from available ones
+                const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+                const selectedQuestion = availableQuestions[randomIndex];
+                
+                // Save asked question ID
+                askedQuestions.push(selectedQuestion.id);
+                currentQuestionIndex = selectedQuestion.id;
+                
+                // Update UI
+                questionElement.textContent = selectedQuestion.question;
+                categoryBadge.textContent = categoryTranslations[selectedQuestion.category];
+                questionNumber.textContent = `${askedQuestions.length}/${questions.length}`;
+                
+                // Update progress bar
+                const progressPercentage = (askedQuestions.length / questions.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Remove animation classes and fade in the new question
+                diceButton.classList.remove("dice-rolling");
+                questionElement.style.opacity = "1";
+                questionElement.classList.add("question-fade");
+                
+                // Remove fade class after animation completes
+                setTimeout(() => {
+                    questionElement.classList.remove("question-fade");
+                }, 500);
+            }, 600);
+        }
+        
+        // Event listener for dice button
+        diceButton.addEventListener("click", showRandomQuestion);
+        
+        // Initialize floating hearts
+        createFloatingHearts();
+        
+        // Add interactive hover effect to the card
+        const card = document.querySelector('.card');
+        card.addEventListener('mousemove', (e) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            
+            const angleX = (cardCenterY - e.clientY) / 30;
+            const angleY = (e.clientX - cardCenterX) / 30;
+            
+            card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        });
+        
+        // Periodically refresh floating hearts to keep them coming
+        setInterval(() => {
+            const hearts = document.querySelectorAll('.heart');
+            hearts.forEach(heart => {
+                // Remove hearts that have completed their animation
+                if (parseFloat(getComputedStyle(heart).opacity) === 0) {
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.animationDelay = '0s'; // Reset animation
+                }
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
