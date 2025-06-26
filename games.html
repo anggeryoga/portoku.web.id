@@ -348,39 +348,52 @@
 
     <script>
         const truthQuestions = [
-            // Tentang Pertemanan (1–10)
-            { category: "🌈 Pertemanan", text: "Siapa temen yang sebenernya kamu kangenin tapi gengsi buat chat duluan?" },
-            { category: "🌈 Pertemanan", text: "Pernah gak ngerasa kayak cuma jadi \"temen cadangan\"?" },
-            { category: "🌈 Pertemanan", text: "Siapa orang yang paling kamu percaya buat nyimpen rahasia, dan kenapa dia?" },
-            { category: "🌈 Pertemanan", text: "Temen paling ngeselin tapi kamu gak bisa beneran marah siapa?" },
-            { category: "🌈 Pertemanan", text: "Kalo temenmu sukses duluan, kamu bakal seneng banget atau ada rasa iri dikit?" },
-            { category: "🌈 Pertemanan", text: "Pernah pura-pura sibuk biar gak diajak nongkrong?" },
-            { category: "🌈 Pertemanan", text: "Siapa yang pernah kamu ghosting padahal dia baik?" },
-            { category: "🌈 Pertemanan", text: "Hal paling cringe yang pernah kamu lakuin bareng sahabat?" },
-            { category: "🌈 Pertemanan", text: "Temen yang paling kamu banggain itu siapa dan kenapa?" },
-            { category: "🌈 Pertemanan", text: "Kalo hidupmu difilmkan, siapa dari circle kamu yang bakal masuk sebagai karakter utama juga?" },
-            
-            // Tentang Keluarga (11–18)
-            { category: "🏠 Keluarga", text: "Siapa di rumah yang paling kamu curhatin pas lagi badmood?" },
-            { category: "🏠 Keluarga", text: "Pernah gak ngerasa kayak kamu \"anak beda frekuensi\" di keluargamu?" },
-            { category: "🏠 Keluarga", text: "Hal kecil apa yang bikin kamu ngerasa disayang sama keluarga?" },
-            { category: "🏠 Keluarga", text: "Ada satu hal yang pengen kamu omongin ke orang tua tapi belum berani?" },
-            { category: "🏠 Keluarga", text: "Siapa yang paling sering bikin kamu ngakak di rumah?" },
-            { category: "🏠 Keluarga", text: "Hal paling random yang pernah kamu lakuin bareng keluarga?" },
-            { category: "🏠 Keluarga", text: "Kalo bisa ajak satu anggota keluarga liburan bareng, kamu pilih siapa dan ke mana?" },
-            { category: "🏠 Keluarga", text: "Siapa yang paling ngerti kamu banget di rumah?" },
-            
-            // Tentang Kerjaan / Cita-Cita (19–26)
-            { category: "💼 Karir", text: "Pernah gak ngerasa kerjaan kamu ngebentuk kamu jadi pribadi baru?" },
-            { category: "💼 Karir", text: "Pekerjaan impian waktu kecil tuh apa sih, dan sekarang udah sejauh apa?" },
-            { category: "💼 Karir", text: "Kalau bisa cabut dari kerjaan sekarang, kamu mau ngapain?" },
-            { category: "💼 Karir", text: "Siapa yang paling bikin kamu semangat kerja (atau belajar)?" },
-            { category: "💼 Karir", text: "Hal paling \"yaelah\" yang pernah kamu lakuin demi kerjaan?" },
-            { category: "💼 Karir", text: "Pernah mikir pengen nyerah aja gak? Terus apa yang bikin kamu lanjut?" },
-            { category: "💼 Karir", text: "Kalo dikasih libur sebulan dan duit unlimited, kamu mau ngapain?" },
-            { category: "💼 Karir", text: "Apa satu pencapaian kecil yang sebenernya kamu banggain tapi gak pernah kamu cerita ke siapa-siapa?" }
-        ];
+    // Pertemanan pedas
+    { category: "Pertemanan", text: "Siapa yang pengen kamu keluarin diam-diam dari grup ini?" },
+    { category: "Pertemanan", text: "Pernah gibahin siapa di sini terus besoknya sok akrab?" },
+    { category: "Pertemanan", text: "Pernah colong ide atau karya temen dan gak ngaku?" },
+    { category: "Pertemanan", text: "Siapa yang kamu anggap saingan tapi kamu pura-pura dukung?" },
+    { category: "Pertemanan", text: "Siapa yang paling gak ikhlas kalau kamu sukses?" },
+    { category: "Pertemanan", text: "Temen yang bikin kamu kapok buat percaya orang lagi siapa?" },
+    { category: "Pertemanan", text: "Siapa temen yang cuma deket kalau lagi butuh aja?" },
+    { category: "Pertemanan", text: "Siapa yang menurut kamu terlalu lebay di medsos tapi kamu tahan buat gak ngomong?" },
+    { category: "Pertemanan", text: "Siapa yang sebenernya beban tapi kamu gak enak buat jauhin?" },
+    { category: "Pertemanan", text: "Pernah nyebarin rahasia temen? Ceritain dong dikit." },
 
+    // Pertemanan positif
+    { category: "Pertemanan", text: "Siapa temen yang paling bikin kamu ngerasa diterima apa adanya?" },
+    { category: "Pertemanan", text: "Temen yang paling sering bikin kamu ketawa gak jelas siapa?" },
+    { category: "Pertemanan", text: "Pernah gak ngerasa 'gila gue beruntung banget punya dia sebagai temen'?" },
+    { category: "Pertemanan", text: "Siapa yang paling kamu percaya buat jaga rahasia kamu sampai kapan pun?" },
+    { category: "Pertemanan", text: "Pernah gak tiba-tiba nangis gara-gara temenmu ngelakuin sesuatu yang tulus banget?" },
+    { category: "Pertemanan", text: "Kalau disuruh ngejelasin arti persahabatan, kamu bakal tunjuk siapa dan kenapa?" },
+    { category: "Pertemanan", text: "Siapa orang yang kalau dia ilang dari hidup kamu, bakal kerasa banget kosongnya?" },
+    { category: "Pertemanan", text: "Hal kecil apa yang pernah temenmu lakuin tapi nempel di hati sampai sekarang?" },
+
+    // Cinta / pasangan
+    { category: "Cinta", text: "Hal paling jauh yang pernah kamu lakuin bareng pasangan?" },
+    { category: "Cinta", text: "Pernah selingkuh atau diselingkuhin? Ceritanya gimana?" },
+    { category: "Cinta", text: "Pernah kepikiran balikan sama mantan? Yang mana tuh?" },
+    { category: "Cinta", text: "Mantan paling susah dilupain siapa dan kenapa?" },
+    { category: "Cinta", text: "Pernah suka sama temen padahal dia udah punya pacar?" },
+    { category: "Cinta", text: "Pernah naksir pacar orang? Sempet deket gak?" },
+    { category: "Cinta", text: "Kalau mantan minta balikan sekarang, kamu nerima gak?" },
+    { category: "Cinta", text: "Siapa orang yang bikin kamu gagal move on parah?" },
+    { category: "Cinta", text: "Hal yang pengen banget kamu lakuin sama pasangan tapi belum kesampean?" },
+    { category: "Cinta", text: "Pernah bohong gede ke pasangan? Ceritain dikit dong." },
+    { category: "Cinta", text: "Orang yang pengen kamu pacarin dulu tapi gak kesampean siapa?" },
+    { category: "Cinta", text: "Toxic moment paling parah yang pernah kamu lakuin dalam hubungan?" },
+
+    // Masa lalu dan penyesalan
+    { category: "Masa Lalu", text: "Hal paling kamu seselin dalam hidup sampai sekarang apa?" },
+    { category: "Masa Lalu", text: "Keputusan random yang bikin kamu mikir, 'kenapa sih gue ngelakuin itu?'" },
+    { category: "Masa Lalu", text: "Pernah ngomong sesuatu ke orang yang sampai sekarang kamu nyesel banget?" },
+    { category: "Masa Lalu", text: "Versi diri kamu yang dulu, bagian mana yang bikin kamu malu banget?" },
+    { category: "Masa Lalu", text: "Kalau bisa ketemu versi kamu yang dulu, kamu pengen minta maaf soal apa?" },
+    { category: "Masa Lalu", text: "Siapa orang yang gak pantes kamu perlakukan seburuk itu waktu itu?" },
+    { category: "Masa Lalu", text: "Pernah nyakitin orang tanpa mereka tahu? Siapa dan kenapa kamu lakuin?" },
+    { category: "Masa Lalu", text: "Hal paling 'gelap' yang pernah kamu lakuin dan gak mau kamu ulang lagi?" }
+];
         const dareChallenges = [
             "Chat orang random dari kontak kamu dan bilang \"aku mimpiin kamu semalam 😳\"",
             "Rekam suara kamu nyanyi 10 detik lagu random, terus kirim ke grup ini",
