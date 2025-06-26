@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth or Dare - Game Seru!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .game-area {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-btn.dare {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+        }
+
+        .game-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .game-btn.dare:hover {
+            box-shadow: 0 15px 40px rgba(78, 205, 196, 0.6);
+        }
+
+        .game-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .game-btn:hover::before {
+            left: 100%;
+        }
+
+        .question-area {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-area::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.05), transparent 30%);
+            animation: rotate 4s linear infinite;
+            pointer-events: none;
+        }
+
+        .question-text {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            line-height: 1.6;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(45deg, #ffa726, #fb8c00);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 167, 38, 0.4);
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 167, 38, 0.6);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .game-area {
+                padding: 25px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-btn {
+                width: 200px;
+                padding: 18px 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .game-area {
+                padding: 20px;
+            }
+            
+            .game-btn {
+                width: 180px;
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Truth or Dare</h1>
+            <p>Game seru buat ngenal temen lebih dalam!</p>
+        </div>
+
+        <div class="game-area">
+            <div class="button-container">
+                <button class="game-btn" onclick="getTruth()">
+                    💬 TRUTH
+                </button>
+                <button class="game-btn dare" onclick="getDare()">
+                    🎲 DARE
+                </button>
+            </div>
+
+            <div class="question-area" id="questionArea">
+                <p class="placeholder">Pilih Truth atau Dare untuk memulai!</p>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="refresh-btn" onclick="getNewQuestion()" id="refreshBtn" style="display: none;">
+                    🔄 Pertanyaan Baru
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const truthQuestions = [
+            // Tentang Pertemanan (1–10)
+            { category: "🌈 Pertemanan", text: "Siapa temen yang sebenernya kamu kangenin tapi gengsi buat chat duluan?" },
+            { category: "🌈 Pertemanan", text: "Pernah gak ngerasa kayak cuma jadi \"temen cadangan\"?" },
+            { category: "🌈 Pertemanan", text: "Siapa orang yang paling kamu percaya buat nyimpen rahasia, dan kenapa dia?" },
+            { category: "🌈 Pertemanan", text: "Temen paling ngeselin tapi kamu gak bisa beneran marah siapa?" },
+            { category: "🌈 Pertemanan", text: "Kalo temenmu sukses duluan, kamu bakal seneng banget atau ada rasa iri dikit?" },
+            { category: "🌈 Pertemanan", text: "Pernah pura-pura sibuk biar gak diajak nongkrong?" },
+            { category: "🌈 Pertemanan", text: "Siapa yang pernah kamu ghosting padahal dia baik?" },
+            { category: "🌈 Pertemanan", text: "Hal paling cringe yang pernah kamu lakuin bareng sahabat?" },
+            { category: "🌈 Pertemanan", text: "Temen yang paling kamu banggain itu siapa dan kenapa?" },
+            { category: "🌈 Pertemanan", text: "Kalo hidupmu difilmkan, siapa dari circle kamu yang bakal masuk sebagai karakter utama juga?" },
+            
+            // Tentang Keluarga (11–18)
+            { category: "🏠 Keluarga", text: "Siapa di rumah yang paling kamu curhatin pas lagi badmood?" },
+            { category: "🏠 Keluarga", text: "Pernah gak ngerasa kayak kamu \"anak beda frekuensi\" di keluargamu?" },
+            { category: "🏠 Keluarga", text: "Hal kecil apa yang bikin kamu ngerasa disayang sama keluarga?" },
+            { category: "🏠 Keluarga", text: "Ada satu hal yang pengen kamu omongin ke orang tua tapi belum berani?" },
+            { category: "🏠 Keluarga", text: "Siapa yang paling sering bikin kamu ngakak di rumah?" },
+            { category: "🏠 Keluarga", text: "Hal paling random yang pernah kamu lakuin bareng keluarga?" },
+            { category: "🏠 Keluarga", text: "Kalo bisa ajak satu anggota keluarga liburan bareng, kamu pilih siapa dan ke mana?" },
+            { category: "🏠 Keluarga", text: "Siapa yang paling ngerti kamu banget di rumah?" },
+            
+            // Tentang Kerjaan / Cita-Cita (19–26)
+            { category: "💼 Karir", text: "Pernah gak ngerasa kerjaan kamu ngebentuk kamu jadi pribadi baru?" },
+            { category: "💼 Karir", text: "Pekerjaan impian waktu kecil tuh apa sih, dan sekarang udah sejauh apa?" },
+            { category: "💼 Karir", text: "Kalau bisa cabut dari kerjaan sekarang, kamu mau ngapain?" },
+            { category: "💼 Karir", text: "Siapa yang paling bikin kamu semangat kerja (atau belajar)?" },
+            { category: "💼 Karir", text: "Hal paling \"yaelah\" yang pernah kamu lakuin demi kerjaan?" },
+            { category: "💼 Karir", text: "Pernah mikir pengen nyerah aja gak? Terus apa yang bikin kamu lanjut?" },
+            { category: "💼 Karir", text: "Kalo dikasih libur sebulan dan duit unlimited, kamu mau ngapain?" },
+            { category: "💼 Karir", text: "Apa satu pencapaian kecil yang sebenernya kamu banggain tapi gak pernah kamu cerita ke siapa-siapa?" }
+        ];
+
+        const dareChallenges = [
+            "Chat orang random dari kontak kamu dan bilang \"aku mimpiin kamu semalam 😳\"",
+            "Rekam suara kamu nyanyi 10 detik lagu random, terus kirim ke grup ini",
+            "Ganti nama profil WA jadi \"anak baik 💅\" selama 24 jam",
+            "Ceritain hal paling memalukan yang pernah kamu lakuin waktu kecil",
+            "Upload story IG berisi \"Ada yang kangen aku gak sih? 🤡\"",
+            "Buat voice note kasih semangat ke diri sendiri dan kirim ke temen sebelahmu",
+            "Lakukan impersonasi jadi bos/temen kerja yang paling iconic selama 15 detik",
+            "Ucapin \"aku sayang kamu\" ke orang terakhir yang kamu chat barusan",
+            "Ganti wallpaper HP kamu jadi selfie lucu sekarang juga (kasih lihat ke yang lain!)",
+            "Ambil 1 barang random di dekat kamu, terus pura-pura itu produk endorse dan review kayak influencer 😂"
+        ];
+
+        let currentMode = '';
+        let lastQuestionIndex = -1;
+
+        function getTruth() {
+            currentMode = 'truth';
+            showRandomQuestion();
+        }
+
+        function getDare() {
+            currentMode = 'dare';
+            showRandomQuestion();
+        }
+
+        function showRandomQuestion() {
+            const questionArea = document.getElementById('questionArea');
+            const refreshBtn = document.getElementById('refreshBtn');
+            
+            let questionData;
+            let randomIndex;
+            
+            if (currentMode === 'truth') {
+                do {
+                    randomIndex = Math.floor(Math.random() * truthQuestions.length);
+                } while (randomIndex === lastQuestionIndex && truthQuestions.length > 1);
+                
+                questionData = truthQuestions[randomIndex];
+                questionArea.innerHTML = `
+                    <div>
+                        <div class="category">${questionData.category}</div>
+                        <p class="question-text">${questionData.text}</p>
+                    </div>
+                `;
+            } else {
+                do {
+                    randomIndex = Math.floor(Math.random() * dareChallenges.length);
+                } while (randomIndex === lastQuestionIndex && dareChallenges.length > 1);
+                
+                questionArea.innerHTML = `
+                    <div>
+                        <div class="category">🎲 DARE Challenge</div>
+                        <p class="question-text">${dareChallenges[randomIndex]}</p>
+                    </div>
+                `;
+            }
+            
+            lastQuestionIndex = randomIndex;
+            refreshBtn.style.display = 'inline-block';
+        }
+
+        function getNewQuestion() {
+            if (currentMode) {
+                showRandomQuestion();
+            }
+        }
+
+        // Add some interactive particles on click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('game-btn')) {
+                createParticles(e.clientX, e.clientY);
+            }
+        });
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = '6px';
+                particle.style.height = '6px';
+                particle.style.background = 'rgba(255, 255, 255, 0.8)';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                
+                const angle = (i / 6) * Math.PI * 2;
+                const velocity = 100;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                document.body.appendChild(particle);
+                
+                let opacity = 1;
+                let posX = 0;
+                let posY = 0;
+                
+                const animate = () => {
+                    opacity -= 0.02;
+                    posX += vx * 0.02;
+                    posY += vy * 0.02;
+                    
+                    particle.style.opacity = opacity;
+                    particle.style.transform = `translate(${posX}px, ${posY}px)`;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        document.body.removeChild(particle);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            }
+        }
+    </script>
+</body>
+</html>
